@@ -18,23 +18,34 @@ process.on('exit', () => {
  */
 
 request({
-  url: 'https://api.github.com/users/vuejs-templates/repos',
+  url: 'https://api.github.com/repos/JooZh/vue-app-layout',
   headers: {
-    'User-Agent': 'vue-cli'
+    'User-Agent': 'vue-app-layout'
   }
 }, (err, res, body) => {
   if (err) logger.fatal(err)
   const requestBody = JSON.parse(body)
-  if (Array.isArray(requestBody)) {
-    console.log('  Available official templates:')
+  console.log('  Available official templates:')
+  if (requestBody.name) {
     console.log()
-    requestBody.forEach(repo => {
-      console.log(
-        '  ' + chalk.yellow('★') +
-        '  ' + chalk.blue(repo.name) +
-        ' - ' + repo.description)
-    })
+    console.log(
+      '  ' + chalk.yellow('★') +
+      '  ' + chalk.blue(requestBody.name) +
+      ' - ' + requestBody.description)
   } else {
     console.error(requestBody.message)
   }
+
+  // if (Array.isArray(requestBody)) {
+  //   console.log('  Available official templates:')
+  //   console.log()
+  //   requestBody.forEach(repo => {
+  //     console.log(
+  //       '  ' + chalk.yellow('★') +
+  //       '  ' + chalk.blue(repo.name) +
+  //       ' - ' + repo.description)
+  //   })
+  // } else {
+  //   console.error(requestBody.message)
+  // }
 })
